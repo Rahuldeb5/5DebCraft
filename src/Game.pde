@@ -2,24 +2,41 @@ import java.awt.Robot;
 
 Robot robot;
 
-float camX = 0, camY = -50, camZ = 200;
+float camX = 0, camY = -135, camZ = 200;
 float pitch = 1.5, yaw = 0;
 
 float sensitivity = 0.002;
 
+PImage dirtTexture;
+DirtBlock[][] blocks;
+
+final int GRID_SIZE = 16;
+final int BLOCK_SIZE = 50;
+
 void setup() {
   fullScreen(P3D);
   noCursor();
+  textureMode(NORMAL);
   
   try {
     robot = new Robot(); 
   } catch(Exception e) {
     e.printStackTrace(); 
   }
+  
+  dirtTexture = loadImage("../data/dirt.png");
+
+  blocks = new DirtBlock[GRID_SIZE][GRID_SIZE];
+  
+  for(int x = 0; x < GRID_SIZE; x++) {
+     for(int z = 0; z < GRID_SIZE; z++) {
+        blocks[x][z] = new DirtBlock(dirtTexture); 
+     }
+  }
 }  
 
 void draw() {
-   background(135, 206, 235); 
+   background(135, 205, 235); 
    lights();
    
    handleMouseLook();
@@ -32,7 +49,13 @@ void draw() {
      0,1,0
    );
    
-   drawGround();
+   for(int x = 0; x<GRID_SIZE; x++) {
+      for(int z =0; z<GRID_SIZE; z++) {
+         float worldX = (x - GRID_SIZE / 2) * BLOCK_SIZE;
+         float worldZ = (z - GRID_SIZE / 2) * BLOCK_SIZE;
+         blocks[x][z].render(worldX, 0, worldZ);
+      }
+   }
 }
 
 void handleMouseLook() {
@@ -42,20 +65,9 @@ void handleMouseLook() {
    yaw += dx;
    pitch += dy;
    
-   pitch = constrain(pitch, -HALF_PI + .5, HALF_PI - .5);
+   pitch = constrain(pitch, -HALF_PI, HALF_PI - .25);
    
    robot.mouseMove(width / 2, height / 2);
    mouseX = width / 2;
    mouseY = height / 2;
-}
-
-void drawGround() {
-  pushMatrix();
-  translate(0, 150, 0);
-  rotateX(HALF_PI);
-  fill(100, 200, 100);
-  noStroke();
-  rectMode(CENTER);
-  rect(0, 0, 5000, 5000);
-  popMatrix();
 }
