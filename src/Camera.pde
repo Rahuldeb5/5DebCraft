@@ -3,9 +3,9 @@ import java.awt.Robot;
 public class Camera {
   Robot robot; 
   
-  float x,y,z;
-  float pitch, yaw;
-  float sensitivity;
+  protected float x,y,z;
+  protected float pitch, yaw;
+  private float sensitivity;
   
   public Camera(float x, float y, float z, float pitch, float yaw, float sensitivity) {
     this.x = x;

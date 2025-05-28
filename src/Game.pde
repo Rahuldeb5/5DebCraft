@@ -25,7 +25,7 @@ void setup() {
   
   cam = new Camera(camX, camY, camZ, pitch, yaw, sensitivity);
   
-  dirtTexture = loadImage("../data/dirt.png");
+  dirtTexture = loadImage("../data/dirt.jpg");
   stoneTexture = loadImage("../data/stone.jpg");
   sandTexture = loadImage("../data/sand.jpg");
   tint(255,  140);
