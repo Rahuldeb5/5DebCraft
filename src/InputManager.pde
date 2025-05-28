@@ -18,16 +18,16 @@ public class InputManager {
         camera.z += forward.z * moveSpeed;
      }
      if(sPressed) {
-        camera.x += forward.x * moveSpeed;
-        camera.z += forward.z * moveSpeed;
+        camera.x -= forward.x * moveSpeed;
+        camera.z -= forward.z * moveSpeed;
      }
      if(aPressed) {
-        camera.x -= right.x * moveSpeed;
-        camera.z -= right.z * moveSpeed;
+        camera.x += right.x * moveSpeed;
+        camera.z += right.z * moveSpeed;
      }
      if(dPressed) {
-        camera.x += right.x * moveSpeed;
-        camera.z += right.z * moveSpeed; 
+        camera.x -= right.x * moveSpeed;
+        camera.z -= right.z * moveSpeed; 
      }
   }
   
