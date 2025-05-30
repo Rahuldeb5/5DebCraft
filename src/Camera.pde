@@ -29,7 +29,7 @@ public class Camera {
    yaw += dx;
    pitch += dy;
    
-   pitch = constrain(pitch, -HALF_PI, HALF_PI - .5);
+   pitch = constrain(pitch, -HALF_PI+.05, HALF_PI-.05);
    
    robot.mouseMove(width / 2, height / 2);
    mouseX = width / 2;

@@ -3,10 +3,14 @@ public abstract class Block {
   private final PImage texture;
   private final boolean breakable;
   
+  Constants k;
+  
   public Block(float hardness, PImage texture, boolean breakable) {
      this.hardness = hardness;
      this.texture = texture;
      this.breakable = breakable;
+     
+     k = new Constants();
   }
   
   public float getHardness() {
@@ -24,41 +28,41 @@ public abstract class Block {
      beginShape(QUADS);
      texture(texture);
      
-     vertex(-25, -25, 25, 0, 0);
-     vertex(25, -25, 25, 1, 0);
-     vertex(25, 25, 25, 1, 1);
-     vertex(-25, 25, 25, 0, 1);
+     vertex(-k.BLOCK_SIZE / 2, -k.BLOCK_SIZE / 2, k.BLOCK_SIZE / 2, 0, 0);
+     vertex(k.BLOCK_SIZE / 2, -k.BLOCK_SIZE / 2, k.BLOCK_SIZE / 2, 1, 0);
+     vertex(k.BLOCK_SIZE / 2, k.BLOCK_SIZE / 2, k.BLOCK_SIZE / 2, 1, 1);
+     vertex(-k.BLOCK_SIZE / 2, k.BLOCK_SIZE / 2, k.BLOCK_SIZE / 2, 0, 1);
 
-     vertex(25, -25, -25, 0, 0);
-     vertex(-25, -25, -25, 1, 0);
-     vertex(-25, 25, -25, 1, 1);
-     vertex(25, 25, -25, 0, 1);
+     vertex(k.BLOCK_SIZE / 2, -k.BLOCK_SIZE / 2, -k.BLOCK_SIZE / 2, 0, 0);
+     vertex(-k.BLOCK_SIZE / 2, -k.BLOCK_SIZE / 2, -k.BLOCK_SIZE / 2, 1, 0);
+     vertex(-k.BLOCK_SIZE / 2, k.BLOCK_SIZE / 2, -k.BLOCK_SIZE / 2, 1, 1);
+     vertex(k.BLOCK_SIZE / 2, k.BLOCK_SIZE / 2, -k.BLOCK_SIZE / 2, 0, 1);
     
-     vertex(25, -25, 25, 0, 0);
-     vertex(25, -25, -25, 1, 0);
-     vertex(25, 25, -25, 1, 1);
-     vertex(25, 25, 25, 0, 1);
+     vertex(k.BLOCK_SIZE / 2, -k.BLOCK_SIZE / 2, k.BLOCK_SIZE / 2, 0, 0);
+     vertex(k.BLOCK_SIZE / 2, -k.BLOCK_SIZE / 2, -k.BLOCK_SIZE / 2, 1, 0);
+     vertex(k.BLOCK_SIZE / 2, k.BLOCK_SIZE / 2, -k.BLOCK_SIZE / 2, 1, 1);
+     vertex(k.BLOCK_SIZE / 2, k.BLOCK_SIZE / 2, k.BLOCK_SIZE / 2, 0, 1);
 
-     vertex(-25, -25, -25, 0, 0);
-     vertex(-25, -25, 25, 1, 0);
-     vertex(-25, 25, 25, 1, 1);
-     vertex(-25, 25, -25, 0, 1);
+     vertex(-k.BLOCK_SIZE / 2, -k.BLOCK_SIZE / 2, -k.BLOCK_SIZE / 2, 0, 0);
+     vertex(-k.BLOCK_SIZE / 2, -k.BLOCK_SIZE / 2, k.BLOCK_SIZE / 2, 1, 0);
+     vertex(-k.BLOCK_SIZE / 2, k.BLOCK_SIZE / 2, k.BLOCK_SIZE / 2, 1, 1);
+     vertex(-k.BLOCK_SIZE / 2, k.BLOCK_SIZE / 2, -k.BLOCK_SIZE / 2, 0, 1);
 
-     vertex(-25, 25, 25, 0, 0);
-     vertex(25, 25, 25, 1, 0);
-     vertex(25, 25, -25, 1, 1);
-     vertex(-25, 25, -25, 0, 1);
+     vertex(-k.BLOCK_SIZE / 2, k.BLOCK_SIZE / 2, k.BLOCK_SIZE / 2, 0, 0);
+     vertex(k.BLOCK_SIZE / 2, k.BLOCK_SIZE / 2, k.BLOCK_SIZE / 2, 1, 0);
+     vertex(k.BLOCK_SIZE / 2, k.BLOCK_SIZE / 2, -k.BLOCK_SIZE / 2, 1, 1);
+     vertex(-k.BLOCK_SIZE / 2, k.BLOCK_SIZE / 2, -k.BLOCK_SIZE / 2, 0, 1);
 
-     vertex(-25, -25, -25, 0, 0);
-     vertex(25, -25, -25, 1, 0);
-     vertex(25, -25, 25, 1, 1);
-     vertex(-25, -25, 25, 0, 1);
+     vertex(-k.BLOCK_SIZE / 2, -k.BLOCK_SIZE / 2, -k.BLOCK_SIZE / 2, 0, 0);
+     vertex(k.BLOCK_SIZE / 2, -k.BLOCK_SIZE / 2, -k.BLOCK_SIZE / 2, 1, 0);
+     vertex(k.BLOCK_SIZE / 2, -k.BLOCK_SIZE / 2, k.BLOCK_SIZE / 2, 1, 1);
+     vertex(-k.BLOCK_SIZE / 2, -k.BLOCK_SIZE / 2, k.BLOCK_SIZE / 2, 0, 1);
 
      endShape();
      
      noFill();
      stroke(0);
-     box(50);
+     box(k.BLOCK_SIZE);
      popMatrix();
   }
 }
