@@ -12,12 +12,14 @@ final int GRID_SIZE = 16;
 
 Camera cam;
 InputManager input;
-Constants k = new Constants();
+Constants k;
 
 void setup() {
   fullScreen(P3D);
   noCursor();
   textureMode(NORMAL);
+  
+  k = new Constants();
   
   cam = new Camera(k.camX,k.camY, k.camZ, k.pitch, k.yaw, k.sensitivity);
   input = new InputManager(cam, 5);
