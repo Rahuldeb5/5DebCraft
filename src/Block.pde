@@ -66,3 +66,15 @@ public abstract class Block {
      popMatrix();
   }
 }
+
+public class DirtBlock extends Block {
+  public DirtBlock(PImage texture) {
+     super(1.0, texture, true);
+  }
+}
+
+public class StoneBlock extends Block {
+  public StoneBlock(PImage texture) {
+     super(1.0, texture, true);
+  }
+}
