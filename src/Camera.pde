@@ -54,6 +54,14 @@ public class Camera {
    ); 
   }
   
+  void resetCharacter() {
+     if(y > k.worldVoidLevel) {
+        x = k.camX;
+        z = k.camZ;
+        y = k.camY;
+     }
+  }
+  
   private boolean checkCollision(float newX, float newY, float newZ) {
      float playerMinX = newX - k.PLAYER_WIDTH / 2;
      float playerMaxX = newX + k.PLAYER_WIDTH / 2;

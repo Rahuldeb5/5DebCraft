@@ -44,6 +44,7 @@ void draw() {
 
    cam.update();
    cam.apply();
+   cam.resetCharacter();
    
    input.update();
       

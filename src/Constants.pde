@@ -4,6 +4,7 @@ public class Constants {
  
  public float camX = 0, camY = -300, camZ = 0;
  public float pitch = 1.25, yaw = 0;
+ public float worldVoidLevel = 6000;
  
  public float moveSpeed = 5;
  
