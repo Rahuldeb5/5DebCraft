@@ -3,14 +3,11 @@ public abstract class Block {
   private final PImage texture;
   private final boolean breakable;
   
-  Constants k;
   
   public Block(float hardness, PImage texture, boolean breakable) {
      this.hardness = hardness;
      this.texture = texture;
      this.breakable = breakable;
-     
-     k = new Constants();
   }
   
   public float getHardness() {
@@ -64,5 +61,17 @@ public abstract class Block {
      stroke(0);
      box(k.BLOCK_SIZE);
      popMatrix();
+  }
+}
+
+public class DirtBlock extends Block {
+  public DirtBlock(PImage texture) {
+     super(1.0, texture, true);
+  }
+}
+
+public class StoneBlock extends Block {
+  public StoneBlock(PImage texture) {
+     super(1.0, texture, true);
   }
 }

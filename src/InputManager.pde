@@ -4,6 +4,8 @@ public class InputManager {
   
   private boolean wPressed, aPressed, sPressed, dPressed;
   
+  private boolean shiftPressed, spacePressed;
+  
   public InputManager(Camera camera, float moveSpeed) {
      this.camera = camera;
      this.moveSpeed = moveSpeed;
@@ -13,21 +15,42 @@ public class InputManager {
      PVector forward = new PVector(cos(camera.yaw), 0, sin(camera.yaw)).normalize();
      PVector right = new PVector(forward.z, 0, -forward.x).normalize();
      
+     float newSpeed;
+     if(shiftPressed) {
+        newSpeed = moveSpeed * 1.75; 
+     } else {
+        newSpeed = moveSpeed; 
+     }
+         
      if(wPressed) {
-        camera.x += forward.x * moveSpeed;
-        camera.z += forward.z * moveSpeed;
+        camera.x += forward.x * newSpeed;
+        camera.z += forward.z * newSpeed;
      }
      if(sPressed) {
-        camera.x -= forward.x * moveSpeed;
-        camera.z -= forward.z * moveSpeed;
+        camera.x -= forward.x * newSpeed;
+        camera.z -= forward.z * newSpeed;
      }
      if(aPressed) {
-        camera.x += right.x * moveSpeed;
-        camera.z += right.z * moveSpeed;
+        camera.x += right.x * newSpeed;
+        camera.z += right.z * newSpeed;
      }
      if(dPressed) {
-        camera.x -= right.x * moveSpeed;
-        camera.z -= right.z * moveSpeed; 
+        camera.x -= right.x * newSpeed;
+        camera.z -= right.z * newSpeed; 
+     }
+          
+     camera.velocityY += k.GRAVITY;
+     if(!cam.checkCollision(camera.x, camera.y + camera.velocityY, camera.z)) {
+        camera.y += camera.velocityY;
+        camera.isOnGround = false;
+     } else {
+        camera.isOnGround = true;
+        camera.velocityY = 0;
+     }
+     
+     if(spacePressed && camera.isOnGround) {
+        camera.velocityY = -k.JUMP;
+        camera.isOnGround = false;
      }
   }
   
@@ -37,7 +60,13 @@ public class InputManager {
         case 'a': aPressed = state; break;
         case 's': sPressed = state; break;
         case 'd': dPressed = state; break;
+        case ' ': spacePressed = state; break;
      }
+     if(key == CODED) {
+        if(keyCode == SHIFT) {
+           shiftPressed = state; 
+        }
+     }  
   }
   
 }
