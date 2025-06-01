@@ -7,6 +7,10 @@ public class Camera {
   protected float pitch, yaw;
   private float sensitivity;
   
+  private float velocityY;
+  private boolean isOnGround;
+
+  
   public Camera(float x, float y, float z, float pitch, float yaw, float sensitivity) {
     this.x = x;
     this.y = y;
@@ -19,7 +23,11 @@ public class Camera {
        robot = new Robot(); 
     } catch(Exception e) {
        e.printStackTrace(); 
-    }  
+    }
+    
+    velocityY = 0;
+    isOnGround = false;
+    
   }
   
   void update() {
@@ -44,5 +52,38 @@ public class Camera {
      z + sin(yaw) * cos(pitch),
      0,1,0
    ); 
+  }
+  
+  private boolean checkCollision(float newX, float newY, float newZ) {
+     float playerMinX = newX - k.PLAYER_WIDTH / 2;
+     float playerMaxX = newX + k.PLAYER_WIDTH / 2;
+     
+     float playerMinY = newY - k.PLAYER_HEIGHT;
+     float playerMaxY = newY + k.PLAYER_CAM_HEIGHT;
+     
+     float playerMinZ = newZ - k.PLAYER_WIDTH / 2;
+     float playerMaxZ = newZ + k.PLAYER_WIDTH / 2;
+     
+     for(int x=0; x<k.GRID_SIZE; x++) {
+        for(int z=0; z<k.GRID_SIZE; z++) {
+           float blockX = (x - k.GRID_SIZE / 2) * k.BLOCK_SIZE;
+           float blockY = 0;
+           float blockZ = (z - k.GRID_SIZE / 2) * k.BLOCK_SIZE;
+           
+           float blockMinX = blockX - k.BLOCK_SIZE/2;
+           float blockMaxX = blockX + k.BLOCK_SIZE/2;
+           
+           float blockMinY = blockY - k.BLOCK_SIZE/2;
+           float blockMaxY = blockY + k.BLOCK_SIZE/2;
+           
+           float blockMinZ = blockZ - k.BLOCK_SIZE/2;
+           float blockMaxZ = blockZ + k.BLOCK_SIZE/2;
+           
+           if(playerMaxX > blockMinX && playerMinX < blockMaxX &&
+              playerMaxY > blockMinY && playerMinY < blockMaxY &&
+              playerMaxZ > blockMinZ && playerMinZ < blockMaxZ) return true;
+        }
+     }
+     return false;
   }
 }

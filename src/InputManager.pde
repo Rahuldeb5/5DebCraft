@@ -21,7 +21,7 @@ public class InputManager {
      } else {
         newSpeed = moveSpeed; 
      }
-     
+         
      if(wPressed) {
         camera.x += forward.x * newSpeed;
         camera.z += forward.z * newSpeed;
@@ -37,6 +37,20 @@ public class InputManager {
      if(dPressed) {
         camera.x -= right.x * newSpeed;
         camera.z -= right.z * newSpeed; 
+     }
+          
+     camera.velocityY += k.GRAVITY;
+     if(!cam.checkCollision(camera.x, camera.y + camera.velocityY, camera.z)) {
+        camera.y += camera.velocityY;
+        camera.isOnGround = false;
+     } else {
+        camera.isOnGround = true;
+        camera.velocityY = 0;
+     }
+     
+     if(spacePressed && camera.isOnGround) {
+        camera.velocityY = -k.JUMP;
+        camera.isOnGround = false;
      }
   }
   

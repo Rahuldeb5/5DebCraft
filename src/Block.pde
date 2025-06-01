@@ -3,14 +3,11 @@ public abstract class Block {
   private final PImage texture;
   private final boolean breakable;
   
-  Constants k;
   
   public Block(float hardness, PImage texture, boolean breakable) {
      this.hardness = hardness;
      this.texture = texture;
      this.breakable = breakable;
-     
-     k = new Constants();
   }
   
   public float getHardness() {
