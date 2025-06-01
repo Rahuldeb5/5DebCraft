@@ -21,26 +21,36 @@ public class InputManager {
      } else {
         newSpeed = moveSpeed; 
      }
+     
+     float moveX = 0, moveZ = 0;
          
      if(wPressed) {
-        camera.x += forward.x * newSpeed;
-        camera.z += forward.z * newSpeed;
+        moveX += forward.x * newSpeed;
+        moveZ += forward.z * newSpeed;
      }
      if(sPressed) {
-        camera.x -= forward.x * newSpeed;
-        camera.z -= forward.z * newSpeed;
+        moveX -= forward.x * newSpeed;
+        moveZ -= forward.z * newSpeed;
      }
      if(aPressed) {
-        camera.x += right.x * newSpeed;
-        camera.z += right.z * newSpeed;
+        moveX += right.x * newSpeed;
+        moveZ += right.z * newSpeed;
      }
      if(dPressed) {
-        camera.x -= right.x * newSpeed;
-        camera.z -= right.z * newSpeed; 
+        moveX -= right.x * newSpeed;
+        moveZ -= right.z * newSpeed; 
+     }
+     
+     if(!camera.checkCollision(camera.x+moveX, camera.y, camera.z)) {
+        camera.x += moveX; 
+     }
+     
+     if(!camera.checkCollision(camera.x, camera.y, camera.z + moveZ)) {
+        camera.z += moveZ; 
      }
           
      camera.velocityY += k.GRAVITY;
-     if(!cam.checkCollision(camera.x, camera.y + camera.velocityY, camera.z)) {
+     if(!camera.checkCollision(camera.x, camera.y + camera.velocityY, camera.z)) {
         camera.y += camera.velocityY;
         camera.isOnGround = false;
      } else {

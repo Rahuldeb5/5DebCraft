@@ -2,7 +2,7 @@ public class Constants {
  public final int BLOCK_SIZE = 100;
  public final int GRID_SIZE = 16;
  
- public float camX = 0, camY = -270, camZ = 0;
+ public float camX = 0, camY = -300, camZ = 0;
  public float pitch = 1.25, yaw = 0;
  
  public float moveSpeed = 5;
