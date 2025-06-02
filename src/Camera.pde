@@ -73,23 +73,25 @@ public class Camera {
     float playerMaxZ = newZ + k.PLAYER_WIDTH / 2;
 
     for (int x=0; x<k.WORLD_SIZE; x++) {
-      for (int z=0; z<k.WORLD_SIZE; z++) {
-        float blockX = (x - k.WORLD_SIZE / 2) * k.BLOCK_SIZE;
-        float blockY = 0;
-        float blockZ = (z - k.WORLD_SIZE / 2) * k.BLOCK_SIZE;
+      for (int y=0; y<k.WORLD_HEIGHT; y++) {
+        for (int z=0; z<k.WORLD_SIZE; z++) {
+          float blockX = (x - k.WORLD_SIZE / 2) * k.BLOCK_SIZE;
+          float blockY = -world.getHeightAt(x, z) * k.BLOCK_SIZE;
+          float blockZ = (z - k.WORLD_SIZE / 2) * k.BLOCK_SIZE;
 
-        float blockMinX = blockX - k.BLOCK_SIZE/2;
-        float blockMaxX = blockX + k.BLOCK_SIZE/2;
+          float blockMinX = blockX - k.BLOCK_SIZE/2;
+          float blockMaxX = blockX + k.BLOCK_SIZE/2;
 
-        float blockMinY = blockY - k.BLOCK_SIZE/2;
-        float blockMaxY = blockY + k.BLOCK_SIZE/2;
+          float blockMinY = blockY - k.BLOCK_SIZE/2;
+          float blockMaxY = blockY + k.BLOCK_SIZE/2;
 
-        float blockMinZ = blockZ - k.BLOCK_SIZE/2;
-        float blockMaxZ = blockZ + k.BLOCK_SIZE/2;
+          float blockMinZ = blockZ - k.BLOCK_SIZE/2;
+          float blockMaxZ = blockZ + k.BLOCK_SIZE/2;
 
-        if (playerMaxX > blockMinX && playerMinX < blockMaxX &&
-          playerMaxY > blockMinY && playerMinY < blockMaxY &&
-          playerMaxZ > blockMinZ && playerMinZ < blockMaxZ) return true;
+          if (playerMaxX > blockMinX && playerMinX < blockMaxX &&
+            playerMaxY > blockMinY && playerMinY < blockMaxY &&
+            playerMaxZ > blockMinZ && playerMinZ < blockMaxZ) return true;
+        }
       }
     }
     return false;

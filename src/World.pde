@@ -1,21 +1,25 @@
 public class World {
   private int[][][] blocks;
+  private float[][] heightMap;
 
   public World() {
     blocks = new int[k.WORLD_SIZE][k.WORLD_HEIGHT][k.WORLD_SIZE];
+    heightMap = new float[k.WORLD_SIZE][k.WORLD_SIZE];
     generateTerrain();
   }
 
   public void generateTerrain() {
-    noiseSeed((int)random(10000));
+    int seed = (int)random(10000);
+    noiseSeed(seed);
     float scale = 0.1;
+    println(seed);
+    // 116, 2392, 7255, 3416
 
-    float[][] heightMap = new float[k.WORLD_SIZE][k.WORLD_SIZE];
     for (int x=0; x<k.WORLD_SIZE; x++) {
       for (int z=0; z<k.WORLD_SIZE; z++) {
-        float h = noise(x*scale, z*scale) * 20;
-        h += noise(x*scale*2, z*scale*2) * 10;
-        h += noise(x*scale*4, z*scale*4) *5;
+        float h = noise(x*scale, z*scale) * 8;
+        h += noise(x*scale*2, z*scale*2) * 4;
+        h += noise(x*scale*4, z*scale*4) * 2;
         heightMap[x][z] = h;
       }
     }
@@ -30,7 +34,10 @@ public class World {
 
         for (int y=0; y<surfaceHeight; y++) {
           if (y < surfaceHeight - 4) blocks[x][y][z] = BlockType.STONE.getType();
-          else blocks[x][y][z] = BlockType.DIRT.getType();
+          else {
+            if (Math.random() < .15) blocks[x][y][z] = BlockType.STONE.getType();
+            else blocks[x][y][z] = BlockType.DIRT.getType();
+          }
         }
 
         if (heightMap[x][z] < k.WORLD_HEIGHT * k.SURFACE_LEVEL_SCALE) {
@@ -54,5 +61,13 @@ public class World {
       return blocks[x][y][z];
     }
     return 0;
+  }
+
+  public float getHeightAt(int x, int z) {
+    return heightMap[x][z];
+  }
+
+  public void setHeightAt(int x, int z, float newHeight) {
+    heightMap[x][z] = newHeight;
   }
 }
