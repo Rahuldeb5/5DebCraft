@@ -1,17 +1,28 @@
 public class HUD {
   public void renderCrosshair() {
     hint(DISABLE_DEPTH_TEST);
+
+    pushMatrix();
+    pushStyle();
+
     camera();
     stroke(255);
     strokeWeight(3);
     line(width / 2 - k.CROSSHAIR, height / 2, width / 2 + k.CROSSHAIR, height / 2);
     line(width / 2, height / 2 - k.CROSSHAIR, width / 2, height / 2 + k.CROSSHAIR);
     strokeWeight(1);
+
+    popMatrix();
+    popStyle();
+
     hint(ENABLE_DEPTH_TEST);
   }
 
   public void renderHotbar() {
     hint(DISABLE_DEPTH_TEST);
+    pushMatrix();
+    pushStyle();
+
     camera();
 
     float x = width / 2 - k.BAR_WIDTH / 2;
@@ -25,7 +36,7 @@ public class HUD {
 
     for (int i=0; i<k.AMT_ITEMS; i++) {
       if (i == inventory.getCurrentIndex()) {
-        stroke(255);
+        stroke(255, 255, 0);
         strokeWeight(8);
       } else {
         stroke(255);
@@ -46,6 +57,9 @@ public class HUD {
       text(inventory.getItemCount()[i], slotX + slotWidth - k.PADDING * 2, y + k.BAR_HEIGHT);
       fill(255);
     }
+
+    popMatrix();
+    popStyle();
 
     hint(ENABLE_DEPTH_TEST);
   }

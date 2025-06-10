@@ -33,7 +33,7 @@ void setup() {
   waterTexture = loadImage("../data/water.jpg");
   woodTexture = loadImage("../data/wood.jpg");
   leafTexture = loadImage("../data/leaf.jpg");
-  
+
   textures = new PImage[] {dirtTexture, stoneTexture, sandTexture, woodTexture, leafTexture, waterTexture};
 
   world = new World();
@@ -76,9 +76,6 @@ void draw() {
   background(135, 205, 235);
   lights();
 
-  hud.renderCrosshair();
-  hud.renderHotbar();
-
   cam.update();
   cam.apply();
   cam.resetCharacter();
@@ -97,6 +94,9 @@ void draw() {
       }
     }
   }
+
+  hud.renderCrosshair();
+  hud.renderHotbar();
 }
 
 void keyPressed() {
