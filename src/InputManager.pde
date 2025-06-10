@@ -1,6 +1,4 @@
 public class InputManager {
-  private Camera camera;
-  private float moveSpeed;
 
   private boolean wPressed, aPressed, sPressed, dPressed;
 
@@ -8,20 +6,15 @@ public class InputManager {
 
   private int index;
 
-  public InputManager(Camera camera, float moveSpeed) {
-    this.camera = camera;
-    this.moveSpeed = moveSpeed;
-  }
-
   public void update() {
-    PVector forward = new PVector(cos(camera.yaw), 0, sin(camera.yaw)).normalize();
+    PVector forward = new PVector(cos(cam.yaw), 0, sin(cam.yaw)).normalize();
     PVector right = new PVector(forward.z, 0, -forward.x).normalize();
 
     float newSpeed;
     if (shiftPressed) {
-      newSpeed = moveSpeed * 1.75;
+      newSpeed = k.moveSpeed * 1.75;
     } else {
-      newSpeed = moveSpeed;
+      newSpeed = k.moveSpeed;
     }
 
     float moveX = 0, moveZ = 0;
@@ -43,26 +36,26 @@ public class InputManager {
       moveZ -= right.z * newSpeed;
     }
 
-    if (!camera.checkCollision(camera.x+moveX, camera.y, camera.z)) {
-      camera.x += moveX;
+    if (!cam.checkCollision(cam.x+moveX, cam.y, cam.z)) {
+      cam.x += moveX;
     }
 
-    if (!camera.checkCollision(camera.x, camera.y, camera.z + moveZ)) {
-      camera.z += moveZ;
+    if (!cam.checkCollision(cam.x, cam.y, cam.z + moveZ)) {
+      cam.z += moveZ;
     }
 
-    camera.velocityY += k.GRAVITY;
-    if (!camera.checkCollision(camera.x, camera.y + camera.velocityY, camera.z)) {
-      camera.y += camera.velocityY;
-      camera.isOnGround = false;
+    cam.velocityY += k.GRAVITY;
+    if (!cam.checkCollision(cam.x, cam.y + cam.velocityY, cam.z)) {
+      cam.y += cam.velocityY;
+      cam.isOnGround = false;
     } else {
-      camera.isOnGround = true;
-      camera.velocityY = 0;
+      cam.isOnGround = true;
+      cam.velocityY = 0;
     }
 
-    if (spacePressed && camera.isOnGround) {
-      camera.velocityY = -k.JUMP;
-      camera.isOnGround = false;
+    if (spacePressed && cam.isOnGround) {
+      cam.velocityY = -k.JUMP;
+      cam.isOnGround = false;
     }
 
     inventory.setCurrentIndex(index-1);

@@ -23,7 +23,7 @@ void setup() {
   k = new Constants();
 
   cam = new Camera(k.camX, k.camY, k.camZ, k.pitch, k.yaw, k.sensitivity);
-  input = new InputManager(cam, k.moveSpeed);
+  input = new InputManager();
 
   inventory = new Inventory();
 
