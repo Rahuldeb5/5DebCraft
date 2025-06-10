@@ -6,6 +6,8 @@ public class InputManager {
 
   private boolean shiftPressed, spacePressed;
 
+  private int index;
+
   public InputManager(Camera camera, float moveSpeed) {
     this.camera = camera;
     this.moveSpeed = moveSpeed;
@@ -62,6 +64,8 @@ public class InputManager {
       camera.velocityY = -k.JUMP;
       camera.isOnGround = false;
     }
+
+    inventory.setCurrentIndex(index-1);
   }
 
   public void setInputState(char key, boolean state) {
@@ -81,6 +85,13 @@ public class InputManager {
     case ' ':
       spacePressed = state;
       break;
+    }
+
+    for (int i=1; i<=k.AMT_ITEMS; i++) {
+      if (key - '0' == i) {
+        index = i;
+        break;
+      }
     }
     if (key == CODED) {
       if (keyCode == SHIFT) {

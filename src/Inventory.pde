@@ -14,16 +14,6 @@ public class Inventory {
     return (itemStack[currentIndex] > 0);
   }
 
-  public void moveRight() {
-    currentIndex++;
-    currentIndex %= k.AMT_ITEMS;
-  }
-
-  public void moveLeft() {
-    currentIndex--;
-    if (currentIndex < 0) currentIndex = k.AMT_ITEMS-1;
-  }
-
   public void addItem(int index) {
     if (itemStack[index] < k.MAX_ITEMS) {
       itemStack[index]++;
@@ -38,6 +28,10 @@ public class Inventory {
 
   public int getCurrentIndex() {
     return currentIndex;
+  }
+
+  public void setCurrentIndex(int index) {
+    currentIndex = index;
   }
 
   public int[] getItemCount() {
