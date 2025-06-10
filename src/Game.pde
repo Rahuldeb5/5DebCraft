@@ -10,6 +10,8 @@ InputManager input;
 Constants k;
 World world;
 Block[][][] blocks;
+HUD hud;
+Inventory inventory;
 
 void setup() {
   fullScreen(P3D);
@@ -21,6 +23,8 @@ void setup() {
   cam = new Camera(k.camX, k.camY, k.camZ, k.pitch, k.yaw, k.sensitivity);
   input = new InputManager(cam, k.moveSpeed);
 
+  inventory = new Inventory();
+
   dirtTexture = loadImage("../data/dirt.jpg");
   stoneTexture = loadImage("../data/stone.jpg");
   sandTexture = loadImage("../data/sand.jpg");
@@ -30,6 +34,8 @@ void setup() {
 
   world = new World();
   blocks = new Block[k.WORLD_SIZE][k.WORLD_HEIGHT][k.WORLD_SIZE];
+
+  hud = new HUD();
 
   for (int x=0; x<k.WORLD_SIZE; x++) {
     for (int y=0; y<k.WORLD_HEIGHT; y++) {
@@ -65,6 +71,8 @@ void setup() {
 void draw() {
   background(135, 205, 235);
   lights();
+
+  hud.renderCrosshair();
 
   cam.update();
   cam.apply();
