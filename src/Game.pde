@@ -1,3 +1,5 @@
+PImage[] textures;
+
 PImage dirtTexture;
 PImage stoneTexture;
 PImage sandTexture;
@@ -31,6 +33,8 @@ void setup() {
   waterTexture = loadImage("../data/water.jpg");
   woodTexture = loadImage("../data/wood.jpg");
   leafTexture = loadImage("../data/leaf.jpg");
+  
+  textures = new PImage[] {dirtTexture, stoneTexture, sandTexture, woodTexture, leafTexture, waterTexture};
 
   world = new World();
   blocks = new Block[k.WORLD_SIZE][k.WORLD_HEIGHT][k.WORLD_SIZE];
@@ -43,22 +47,22 @@ void setup() {
         int blockType = world.getBlockAt(x, y, z);
         switch(blockType) {
         case 1:
-          blocks[x][y][z] = new DirtBlock(dirtTexture);
+          blocks[x][y][z] = new DirtBlock(textures[0]);
           break;
         case 2:
-          blocks[x][y][z] = new StoneBlock(stoneTexture);
+          blocks[x][y][z] = new StoneBlock(textures[1]);
           break;
         case 3:
-          blocks[x][y][z] = new SandBlock(sandTexture);
+          blocks[x][y][z] = new SandBlock(textures[2]);
           break;
         case 4:
-          blocks[x][y][z] = new WaterBlock(waterTexture);
+          blocks[x][y][z] = new WaterBlock(textures[5]);
           break;
         case 5:
-          blocks[x][y][z] = new WoodBlock(woodTexture);
+          blocks[x][y][z] = new WoodBlock(textures[3]);
           break;
         case 6:
-          blocks[x][y][z] = new LeafBlock(leafTexture);
+          blocks[x][y][z] = new LeafBlock(textures[4]);
           break;
         default:
           blocks[x][y][z] = null;
@@ -73,6 +77,7 @@ void draw() {
   lights();
 
   hud.renderCrosshair();
+  hud.renderHotbar();
 
   cam.update();
   cam.apply();
