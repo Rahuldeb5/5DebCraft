@@ -1,3 +1,5 @@
+PImage[] textures;
+
 PImage dirtTexture;
 PImage stoneTexture;
 PImage sandTexture;
@@ -10,6 +12,8 @@ InputManager input;
 Constants k;
 World world;
 Block[][][] blocks;
+HUD hud;
+Inventory inventory;
 
 void setup() {
   fullScreen(P3D);
@@ -21,6 +25,8 @@ void setup() {
   cam = new Camera(k.camX, k.camY, k.camZ, k.pitch, k.yaw, k.sensitivity);
   input = new InputManager(cam, k.moveSpeed);
 
+  inventory = new Inventory();
+
   dirtTexture = loadImage("../data/dirt.jpg");
   stoneTexture = loadImage("../data/stone.jpg");
   sandTexture = loadImage("../data/sand.jpg");
@@ -28,8 +34,12 @@ void setup() {
   woodTexture = loadImage("../data/wood.jpg");
   leafTexture = loadImage("../data/leaf.jpg");
 
+  textures = new PImage[] {dirtTexture, stoneTexture, sandTexture, woodTexture, leafTexture, waterTexture};
+
   world = new World();
   blocks = new Block[k.WORLD_SIZE][k.WORLD_HEIGHT][k.WORLD_SIZE];
+
+  hud = new HUD();
 
   for (int x=0; x<k.WORLD_SIZE; x++) {
     for (int y=0; y<k.WORLD_HEIGHT; y++) {
@@ -37,22 +47,22 @@ void setup() {
         int blockType = world.getBlockAt(x, y, z);
         switch(blockType) {
         case 1:
-          blocks[x][y][z] = new DirtBlock(dirtTexture);
+          blocks[x][y][z] = new DirtBlock(textures[0]);
           break;
         case 2:
-          blocks[x][y][z] = new StoneBlock(stoneTexture);
+          blocks[x][y][z] = new StoneBlock(textures[1]);
           break;
         case 3:
-          blocks[x][y][z] = new SandBlock(sandTexture);
+          blocks[x][y][z] = new SandBlock(textures[2]);
           break;
         case 4:
-          blocks[x][y][z] = new WaterBlock(waterTexture);
+          blocks[x][y][z] = new WaterBlock(textures[5]);
           break;
         case 5:
-          blocks[x][y][z] = new WoodBlock(woodTexture);
+          blocks[x][y][z] = new WoodBlock(textures[3]);
           break;
         case 6:
-          blocks[x][y][z] = new LeafBlock(leafTexture);
+          blocks[x][y][z] = new LeafBlock(textures[4]);
           break;
         default:
           blocks[x][y][z] = null;
@@ -84,6 +94,9 @@ void draw() {
       }
     }
   }
+
+  hud.renderCrosshair();
+  hud.renderHotbar();
 }
 
 void keyPressed() {

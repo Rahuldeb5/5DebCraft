@@ -20,6 +20,16 @@ public class Constants {
   public float GRAVITY = .9;
   public float JUMP = 22;
 
+  public float CROSSHAIR = 10;
+
+  public int AMT_ITEMS = 5;
+  public int MAX_ITEMS = 64;
+
+  public float BAR_WIDTH = width / 8;
+  public float BAR_HEIGHT = height / 24;
+  public float PADDING = 2;
+  public float TEXT_SIZE = 30;
+
   public Constants() {
     float dpi = java.awt.Toolkit.getDefaultToolkit().getScreenResolution();
     float screenHeight = displayHeight / dpi;

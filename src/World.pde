@@ -12,8 +12,6 @@ public class World {
     int seed = (int)random(10000);
     noiseSeed(seed);
     float scale = 0.1;
-    println(seed);
-    // 116, 2392, 7255, 3416
 
     for (int x=0; x<k.WORLD_SIZE; x++) {
       for (int z=0; z<k.WORLD_SIZE; z++) {
