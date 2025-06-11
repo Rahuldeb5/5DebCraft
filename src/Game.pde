@@ -1,11 +1,6 @@
 PImage[] textures;
 
-PImage dirtTexture;
-PImage stoneTexture;
-PImage sandTexture;
-PImage waterTexture;
-PImage woodTexture;
-PImage leafTexture;
+PImage[] breakingStages;
 
 Camera cam;
 InputManager input;
@@ -16,6 +11,7 @@ HUD hud;
 Inventory inventory;
 
 Ray targetBlock;
+float breakStart = -1;
 
 void setup() {
   fullScreen(P3D);
@@ -29,14 +25,13 @@ void setup() {
 
   inventory = new Inventory();
 
-  dirtTexture = loadImage("../data/dirt.jpg");
-  stoneTexture = loadImage("../data/stone.jpg");
-  sandTexture = loadImage("../data/sand.jpg");
-  waterTexture = loadImage("../data/water.jpg");
-  woodTexture = loadImage("../data/wood.jpg");
-  leafTexture = loadImage("../data/leaf.jpg");
+  textures = new PImage[] {loadImage("../data/dirt.jpg"), loadImage("../data/stone.jpg"), loadImage("../data/sand.jpg"),
+    loadImage("../data/wood.jpg"), loadImage("../data/leaf.jpg"), loadImage("../data/water.jpg")};
 
-  textures = new PImage[] {dirtTexture, stoneTexture, sandTexture, woodTexture, leafTexture, waterTexture};
+  breakingStages = new PImage[5];
+  for (int i=0; i<5; i++) {
+    breakingStages[i] = loadImage("../data/crack_"+i+".png");
+  }
 
   world = new World();
   blocks = new Block[k.WORLD_SIZE][k.WORLD_HEIGHT][k.WORLD_SIZE];
@@ -82,8 +77,6 @@ void draw() {
   cam.apply();
   cam.resetCharacter();
 
-  input.update();
-
   targetBlock = cam.castRay(cam.x, cam.y, cam.z,
     cos(cam.yaw) * cos(cam.pitch),
     sin(cam.pitch),
@@ -92,6 +85,26 @@ void draw() {
   if (targetBlock != null) {
     println(targetBlock.blockId + " " + targetBlock.x + " " + targetBlock.y + " " + targetBlock.z);
   }
+
+  if (targetBlock != null) {
+    Block actualBlock = blocks[targetBlock.x][targetBlock.y][targetBlock.z];
+    if (mousePressed && (mouseButton == LEFT) && actualBlock != null && blocks[targetBlock.x][targetBlock.y][targetBlock.z].isBreakable()) {
+      if (breakStart < 0) breakStart = millis();
+      float duration = millis() - breakStart;
+      if (duration > blocks[targetBlock.x][targetBlock.y][targetBlock.z].getHardness() * 1000) {
+        blocks[targetBlock.x][targetBlock.y][targetBlock.z] = null;
+        targetBlock = null;
+        breakStart = -1;
+      } else {
+        int stage = int(map(duration, 0, blocks[targetBlock.x][targetBlock.y][targetBlock.z].getHardness()*1000, 0, 4));
+        actualBlock.setBreakingStage(stage);
+      }
+    } else {
+      breakStart = -1;
+    }
+  }
+
+  input.update();
 
   for (int x=0; x<k.WORLD_SIZE; x++) {
     for (int y=0; y<k.WORLD_HEIGHT; y++) {

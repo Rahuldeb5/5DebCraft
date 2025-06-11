@@ -98,7 +98,7 @@ public class Camera {
   }
 
   public Ray castRay(float x, float y, float z, float dx, float dy, float dz) {
-    for (float t = k.BLOCK_SIZE / 20; t < k.MAX_DISTANCE; t += k.BLOCK_SIZE / 100) {
+    for (float t = k.BLOCK_SIZE / 20; t < k.MAX_DISTANCE; t += 0.1) {
       int bx = floor((x+dx*t) / k.BLOCK_SIZE + k.WORLD_SIZE / 2);
       int by = floor(-(y+dy*t) / k.BLOCK_SIZE);
       int bz = floor((z+dz*t) / k.BLOCK_SIZE + k.WORLD_SIZE / 2);
