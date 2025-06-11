@@ -97,7 +97,7 @@ void draw() {
         actualBlock.setBreakingStage(stage);
       }
     }
-    if (mousePressed && (mouseButton == RIGHT)) {
+    if (mousePressed && (mouseButton == RIGHT) && inventory.hasItem()) {
       world.blocks[targetBlock.x][constrain(targetBlock.y+1, 0, k.WORLD_HEIGHT-1)][targetBlock.z] = inventory.getCurrentIndex() + 1;
 
       int blockType = world.getBlockAt(targetBlock.x, constrain(targetBlock.y+1, 0, k.WORLD_HEIGHT-1), targetBlock.z);
@@ -123,6 +123,7 @@ void draw() {
       default:
         blocks[targetBlock.x][constrain(targetBlock.y+1, 0, k.WORLD_HEIGHT-1)][targetBlock.z] = null;
       }
+      inventory.removeItem();
     }
   }
 
