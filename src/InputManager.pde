@@ -19,21 +19,35 @@ public class InputManager {
 
     float moveX = 0, moveZ = 0;
 
+    boolean isWalking = false;
+
     if (wPressed) {
       moveX += forward.x * newSpeed;
       moveZ += forward.z * newSpeed;
+      isWalking = true;
     }
     if (sPressed) {
       moveX -= forward.x * newSpeed;
       moveZ -= forward.z * newSpeed;
+      isWalking = true;
     }
     if (aPressed) {
       moveX += right.x * newSpeed;
       moveZ += right.z * newSpeed;
+      isWalking = true;
     }
     if (dPressed) {
       moveX -= right.x * newSpeed;
       moveZ -= right.z * newSpeed;
+      isWalking = true;
+    }
+
+    if (isWalking && !walkSound.isPlaying() && cam.isOnGround) {
+      walkSound.play();
+    }
+
+    if (moveX == 0 || moveZ == 0) {
+      walkSound.stop();
     }
 
     if (!cam.checkCollision(cam.x+moveX, cam.y, cam.z)) {
@@ -56,6 +70,9 @@ public class InputManager {
     if (spacePressed && cam.isOnGround) {
       cam.velocityY = -k.JUMP;
       cam.isOnGround = false;
+      if (!jumpSound.isPlaying()) {
+        jumpSound.play();
+      }
     }
 
     inventory.setCurrentIndex(index-1);
