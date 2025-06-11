@@ -93,7 +93,7 @@ void draw() {
         targetBlock = null;
         breakStart = -1;
       } else {
-        int stage = int(map(duration, 0, blocks[targetBlock.x][targetBlock.y][targetBlock.z].getHardness()*1000, 0, 4));
+        int stage = int(map(duration, 0, blocks[targetBlock.x][targetBlock.y][targetBlock.z].getHardness()*1000, 0, 5));
         actualBlock.setBreakingStage(stage);
       }
     }
