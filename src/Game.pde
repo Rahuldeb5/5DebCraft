@@ -89,6 +89,10 @@ void draw() {
     sin(cam.pitch),
     sin(cam.yaw) * cos(cam.pitch));
 
+  if (targetBlock != null) {
+    println(targetBlock.blockId + " " + targetBlock.x + " " + targetBlock.y + " " + targetBlock.z);
+  }
+
   for (int x=0; x<k.WORLD_SIZE; x++) {
     for (int y=0; y<k.WORLD_HEIGHT; y++) {
       for (int z=0; z<k.WORLD_SIZE; z++) {

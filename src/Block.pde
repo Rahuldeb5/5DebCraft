@@ -84,7 +84,7 @@ public class SandBlock extends Block {
 
 public class WaterBlock extends Block {
   public WaterBlock(PImage texture) {
-    super(1.0, texture, false);
+    super(0, texture, false);
   }
 }
 
@@ -96,7 +96,7 @@ public class WoodBlock extends Block {
 
 public class LeafBlock extends Block {
   public LeafBlock(PImage texture) {
-    super(1.0, texture, false);
+    super(1.0, texture, true);
   }
 }
 
