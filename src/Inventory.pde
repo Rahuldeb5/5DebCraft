@@ -5,7 +5,7 @@ public class Inventory {
   public Inventory() {
     itemStack = new int[k.AMT_ITEMS];
     for (int i=0; i<k.AMT_ITEMS; i++) {
-      itemStack[i] = 0;
+      itemStack[i] = 64;
     }
     currentIndex = 0;
   }

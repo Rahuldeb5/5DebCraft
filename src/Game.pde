@@ -94,10 +94,15 @@ void draw() {
         breakStart = -1;
       } else {
         int stage = int(map(duration, 0, blocks[targetBlock.x][targetBlock.y][targetBlock.z].getHardness()*1000, 0, 5));
+        stage = constrain(stage, 0, 4);
         actualBlock.setBreakingStage(stage);
       }
+    } else {
+      if (actualBlock != null) {
+        actualBlock.setBreakingStage(-1);
+      }
     }
-    if (mousePressed && (mouseButton == RIGHT) && inventory.hasItem()) {
+    if (mousePressed && (mouseButton == RIGHT) && inventory.hasItem() && blocks[targetBlock.x][constrain(targetBlock.y+1, 0, k.WORLD_HEIGHT-1)][targetBlock.z] == null) {
       world.blocks[targetBlock.x][constrain(targetBlock.y+1, 0, k.WORLD_HEIGHT-1)][targetBlock.z] = inventory.getCurrentIndex() + 1;
 
       int blockType = world.getBlockAt(targetBlock.x, constrain(targetBlock.y+1, 0, k.WORLD_HEIGHT-1), targetBlock.z);
