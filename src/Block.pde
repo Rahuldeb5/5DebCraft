@@ -25,7 +25,11 @@ public abstract class Block {
     translate(x, y, z);
     noStroke();
     beginShape(QUADS);
-    texture(this.texture);
+    if (stage >=0) {
+      texture(breakingStages[stage]);
+    } else {
+      texture(this.texture);
+    }
 
     vertex(-k.BLOCK_SIZE / 2, -k.BLOCK_SIZE / 2, k.BLOCK_SIZE / 2, 0, 0);
     vertex(k.BLOCK_SIZE / 2, -k.BLOCK_SIZE / 2, k.BLOCK_SIZE / 2, 1, 0);
@@ -58,14 +62,6 @@ public abstract class Block {
     vertex(-k.BLOCK_SIZE / 2, -k.BLOCK_SIZE / 2, k.BLOCK_SIZE / 2, 0, 1);
 
     endShape();
-
-    if (stage >= 0) {
-      hint(DISABLE_DEPTH_MASK);
-      beginShape(QUADS);
-      texture(breakingStages[stage]);
-      endShape();
-      hint(ENABLE_DEPTH_MASK);
-    }
 
     noFill();
     stroke(0);
