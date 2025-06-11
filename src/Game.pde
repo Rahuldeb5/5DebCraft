@@ -5,7 +5,6 @@ PImage[] textures;
 PImage[] breakingStages;
 
 SoundFile breakSound;
-SoundFile jumpSound;
 SoundFile walkSound;
 SoundFile themeSong;
 
@@ -46,7 +45,6 @@ void setup() {
   hud = new HUD();
 
   breakSound = new SoundFile(this, "../data/break_block.mp3");
-  jumpSound = new SoundFile(this, "../data/jump.mp3");
   walkSound = new SoundFile(this, "../data/walking.mp3");
   themeSong = new SoundFile(this, "../data/pigstep.mp3");
 

@@ -70,9 +70,6 @@ public class InputManager {
     if (spacePressed && cam.isOnGround) {
       cam.velocityY = -k.JUMP;
       cam.isOnGround = false;
-      if (!jumpSound.isPlaying()) {
-        jumpSound.play();
-      }
     }
 
     inventory.setCurrentIndex(index-1);
