@@ -118,9 +118,10 @@ public enum BlockType {
   DIRT(1),
     STONE(2),
     SAND(3),
-    WATER(4),
-    WOOD(5),
-    LEAF(6);
+    WOOD(4),
+    LEAF(5),
+    WATER(6);
+
 
   private final int type;
 

@@ -53,13 +53,13 @@ void setup() {
           blocks[x][y][z] = new SandBlock(textures[2]);
           break;
         case 4:
-          blocks[x][y][z] = new WaterBlock(textures[5]);
-          break;
-        case 5:
           blocks[x][y][z] = new WoodBlock(textures[3]);
           break;
-        case 6:
+        case 5:
           blocks[x][y][z] = new LeafBlock(textures[4]);
+          break;
+        case 6:
+          blocks[x][y][z] = new WaterBlock(textures[5]);
           break;
         default:
           blocks[x][y][z] = null;
@@ -92,6 +92,7 @@ void draw() {
       if (breakStart < 0) breakStart = millis();
       float duration = millis() - breakStart;
       if (duration > blocks[targetBlock.x][targetBlock.y][targetBlock.z].getHardness() * 1000) {
+        inventory.addItem(world.blocks[targetBlock.x][targetBlock.y][targetBlock.z]);
         blocks[targetBlock.x][targetBlock.y][targetBlock.z] = null;
         targetBlock = null;
         breakStart = -1;
