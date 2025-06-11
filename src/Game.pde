@@ -1,6 +1,13 @@
+import processing.sound.*;
+
 PImage[] textures;
 
 PImage[] breakingStages;
+
+SoundFile breakSound;
+SoundFile jumpSound;
+SoundFile walkSound;
+SoundFile themeSong;
 
 Camera cam;
 InputManager input;
@@ -37,6 +44,14 @@ void setup() {
   blocks = new Block[k.WORLD_SIZE][k.WORLD_HEIGHT][k.WORLD_SIZE];
 
   hud = new HUD();
+
+  breakSound = new SoundFile(this, "../data/break_block.mp3");
+  jumpSound = new SoundFile(this, "../data/jump.mp3");
+  walkSound = new SoundFile(this, "../data/walking.mp3");
+  themeSong = new SoundFile(this, "../data/pigstep.mp3");
+
+  themeSong.play();
+  themeSong.loop();
 
   for (int x=0; x<k.WORLD_SIZE; x++) {
     for (int y=0; y<k.WORLD_HEIGHT; y++) {
@@ -85,13 +100,17 @@ void draw() {
   if (targetBlock != null) {
     Block actualBlock = blocks[targetBlock.x][targetBlock.y][targetBlock.z];
     if (mousePressed && (mouseButton == LEFT) && actualBlock != null && blocks[targetBlock.x][targetBlock.y][targetBlock.z].isBreakable()) {
-      if (breakStart < 0) breakStart = millis();
+      if (breakStart < 0) {
+        breakStart = millis();
+        breakSound.play();
+      }
       float duration = millis() - breakStart;
       if (duration > blocks[targetBlock.x][targetBlock.y][targetBlock.z].getHardness() * 1000) {
         inventory.addItem(targetBlock.blockId-1);
         blocks[targetBlock.x][targetBlock.y][targetBlock.z] = null;
         targetBlock = null;
         breakStart = -1;
+        breakSound.stop();
       } else {
         int stage = int(map(duration, 0, blocks[targetBlock.x][targetBlock.y][targetBlock.z].getHardness()*1000, 0, 5));
         stage = constrain(stage, 0, 4);
