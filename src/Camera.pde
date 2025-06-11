@@ -96,4 +96,37 @@ public class Camera {
     }
     return false;
   }
+
+  public Ray castRay(float x, float y, float z, float dx, float dy, float dz) {
+    for (float t = 0; t < k.MAX_DISTANCE; t += k.BLOCK_SIZE / 100) {
+      int bx = floor((x+dx*t) / k.BLOCK_SIZE + k.WORLD_SIZE / 2);
+      int by = floor(-(y+dy*t) / k.BLOCK_SIZE);
+      int bz = floor((z+dz*t) / k.BLOCK_SIZE + k.WORLD_SIZE / 2);
+
+
+      if (bx < 0 || bx >= k.WORLD_SIZE ||
+        by < 0 || by >= k.WORLD_HEIGHT ||
+        bz < 0 || bz >= k.WORLD_SIZE) {
+        continue;
+      }
+
+      int target = world.blocks[bx][by][bz];
+      if (target != 0) {
+        return new Ray(bx, by, bz, target);
+      }
+    }
+    return null;
+  }
+}
+
+public class Ray {
+  int x, y, z;
+  int blockId;
+
+  public Ray(int x, int y, int z, int blockId) {
+    this.x = x;
+    this.y = y;
+    this.z = z;
+    this.blockId = blockId;
+  }
 }

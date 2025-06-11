@@ -30,6 +30,8 @@ public class Constants {
   public float PADDING = 2;
   public float TEXT_SIZE = 30;
 
+  public float MAX_DISTANCE = 500;
+
   public Constants() {
     float dpi = java.awt.Toolkit.getDefaultToolkit().getScreenResolution();
     float screenHeight = displayHeight / dpi;

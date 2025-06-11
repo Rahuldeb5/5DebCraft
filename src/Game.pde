@@ -15,6 +15,8 @@ Block[][][] blocks;
 HUD hud;
 Inventory inventory;
 
+Ray targetBlock;
+
 void setup() {
   fullScreen(P3D);
   noCursor();
@@ -81,6 +83,11 @@ void draw() {
   cam.resetCharacter();
 
   input.update();
+
+  targetBlock = cam.castRay(cam.x, cam.y, cam.z,
+    cos(cam.yaw) * cos(cam.pitch),
+    sin(cam.pitch),
+    sin(cam.yaw) * cos(cam.pitch));
 
   for (int x=0; x<k.WORLD_SIZE; x++) {
     for (int y=0; y<k.WORLD_HEIGHT; y++) {
