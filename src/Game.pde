@@ -83,16 +83,12 @@ void draw() {
     sin(cam.yaw) * cos(cam.pitch));
 
   if (targetBlock != null) {
-    println(targetBlock.blockId + " " + targetBlock.x + " " + targetBlock.y + " " + targetBlock.z);
-  }
-
-  if (targetBlock != null) {
     Block actualBlock = blocks[targetBlock.x][targetBlock.y][targetBlock.z];
     if (mousePressed && (mouseButton == LEFT) && actualBlock != null && blocks[targetBlock.x][targetBlock.y][targetBlock.z].isBreakable()) {
       if (breakStart < 0) breakStart = millis();
       float duration = millis() - breakStart;
       if (duration > blocks[targetBlock.x][targetBlock.y][targetBlock.z].getHardness() * 1000) {
-        inventory.addItem(world.blocks[targetBlock.x][targetBlock.y][targetBlock.z]);
+        inventory.addItem(targetBlock.blockId-1);
         blocks[targetBlock.x][targetBlock.y][targetBlock.z] = null;
         targetBlock = null;
         breakStart = -1;
@@ -100,8 +96,33 @@ void draw() {
         int stage = int(map(duration, 0, blocks[targetBlock.x][targetBlock.y][targetBlock.z].getHardness()*1000, 0, 4));
         actualBlock.setBreakingStage(stage);
       }
-    } else {
-      breakStart = -1;
+    }
+    if (mousePressed && (mouseButton == RIGHT)) {
+      world.blocks[targetBlock.x][constrain(targetBlock.y+1, 0, k.WORLD_HEIGHT-1)][targetBlock.z] = inventory.getCurrentIndex() + 1;
+
+      int blockType = world.getBlockAt(targetBlock.x, constrain(targetBlock.y+1, 0, k.WORLD_HEIGHT-1), targetBlock.z);
+      switch(blockType) {
+      case 1:
+        blocks[targetBlock.x][constrain(targetBlock.y+1, 0, k.WORLD_HEIGHT-1)][targetBlock.z] = new DirtBlock(textures[0]);
+        break;
+      case 2:
+        blocks[targetBlock.x][constrain(targetBlock.y+1, 0, k.WORLD_HEIGHT-1)][targetBlock.z] = new StoneBlock(textures[1]);
+        break;
+      case 3:
+        blocks[targetBlock.x][constrain(targetBlock.y+1, 0, k.WORLD_HEIGHT-1)][targetBlock.z] = new SandBlock(textures[2]);
+        break;
+      case 4:
+        blocks[targetBlock.x][constrain(targetBlock.y+1, 0, k.WORLD_HEIGHT-1)][targetBlock.z] = new WoodBlock(textures[3]);
+        break;
+      case 5:
+        blocks[targetBlock.x][constrain(targetBlock.y+1, 0, k.WORLD_HEIGHT-1)][targetBlock.z] = new LeafBlock(textures[4]);
+        break;
+      case 6:
+        blocks[targetBlock.x][constrain(targetBlock.y+1, 0, k.WORLD_HEIGHT-1)][targetBlock.z] = new WaterBlock(textures[5]);
+        break;
+      default:
+        blocks[targetBlock.x][constrain(targetBlock.y+1, 0, k.WORLD_HEIGHT-1)][targetBlock.z] = null;
+      }
     }
   }
 
