@@ -9,7 +9,7 @@
 
 ## 🧱 Project Overview
 
-**5DebCraft** is a 3D Minecraft-style sandbox game developed in Processing as a final project for APCSA. The game simulates core Minecraft mechanics, including block placement, destruction with cracking animation, a dynamic HUD, a first-person camera system, and multiplayer support using a Raspberry Pi server.
+**5DebCraft** is a 3D Minecraft-clone sandbox game developed in Processing as a final project for APCSA. The game simulates core Minecraft mechanics, including block placement, destruction with cracking animation, a dynamic HUD, and a first-person camera system.
 
 ---
 
@@ -23,7 +23,6 @@
   - `hardness`
   - `breakable` flag
   - `texture`
-  - (Planned) `stackable`, `falls`, `spreads` properties
 
 - **Player Controls**
   - `W/A/S/D` – Move forward/left/back/right
@@ -43,12 +42,6 @@
 - **HUD Elements**
   - Crosshair
   - Hotbar with selected item highlight
-  - (Planned) Health bar and tick-based day/night cycle
-
-- **Multiplayer**
-  - Raspberry Pi server handles player connections
-  - Block placement and breaking sync across clients
-  - Future features: PvP, health management, fall damage
 
 ---
 
@@ -57,29 +50,17 @@
 - **Language:** Java (Processing)
 - **Graphics:** Processing 3 with `P3D` renderer
 - **Audio:** Processing Sound library
-- **Networking:** Processing Network library
-- **Server:** Raspberry Pi for multiplayer synchronization
 
 ---
 
 ## 🗂️ Project Structure
 
 - `Block.java` – Abstract base class for all blocks
-- `DirtBlock`, `StoneBlock`, etc. – Subclasses with specific properties
 - `Camera.java` – Handles first-person view and mouse movement
 - `Inventory.java` – Tracks item stacks and player selection
 - `HUD.java` – Renders UI elements
 - `World.java` – Procedural generation of terrain
 - `InputManager.java` – Keyboard input state handling
-
----
-
-## 🚧 Planned Features
-
-- Block physics (sand falling, water spreading)
-- Health, PvP, and fall damage
-- Crafting system and tools
-- Improved rendering performance
 
 ---
 
